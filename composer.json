@@ -1,0 +1,19 @@
+{
+    "name": "momme/nedbor",
+    "description": "Nedbør stat",
+    "version": "1.0.0",
+    "autoload": {
+        "psr-4": {
+            "Momme\\Nedbor\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Morten Lysdal Hansen",
+            "email": "morten@webbook.dk"
+        }
+    ],
+    "require-dev": {
+        "phpunit/phpunit": "^11.3"
+    }
+}
