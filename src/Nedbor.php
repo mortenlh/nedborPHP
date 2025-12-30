@@ -37,6 +37,9 @@ class Nedbor
     {
         $csvread = new \Momme\Nedbor\NedborCsv();
         $this->periods = $csvread->getCvsPeriods($this->path);
+
+        $csvread->makeOneFile($this->path);
+
         if (count($this->periods) > 0) {
             $this->nedbordata['Måned'] = array_fill(0, 12, "");
         }

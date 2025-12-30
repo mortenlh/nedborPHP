@@ -27,6 +27,7 @@ class NedborCsv
                     'mm' => $val
                 ];
             }
+            @fclose($csvhandle);
         }
     }
 
@@ -44,7 +45,7 @@ class NedborCsv
                 }
             }
         }
-        usort($out, array('Momme\Nedbor\NedborCsv','periodesSort'));
+        usort($out, array('Momme\Nedbor\NedborCsv', 'periodesSort'));
         return $out;
     }
 
@@ -55,6 +56,35 @@ class NedborCsv
 
     private function periodesSort($a, $b): int
     {
-        return strcmp($a,$b);
+        return strcmp($a, $b);
+    }
+
+    public function makeOneFile(string $path): void
+    {
+        $years = $this->getCvsPeriods($path);
+        $filetxt = '';
+        for ($i = 0; $i < sizeof($years); $i++) {
+            $year = $years[$i];
+            $file = $path . "n" . $year . ".csv";
+            $handle = @fopen($file, "r");
+            if ($handle) {
+                $filetxt .= $year . ";";
+                $csvdata = [];
+                while (($line = fgets($handle)) !== false) {
+                    $mdata = explode(';', $line);
+                    $val = trim($mdata[1]);
+                    if (strlen($val) == 0) {
+                        $val = '';
+                    }
+                    $csvdata[] = $val;
+                }
+                $filetxt .= implode(";", $csvdata) . "\n";
+                fclose($handle);
+            }
+        }
+        $outfile = $path . "nedbør.csv";
+        $outhandle = @fopen($outfile, "w");
+        fwrite( $outhandle,$filetxt);
+        fclose($outhandle);
     }
 }
