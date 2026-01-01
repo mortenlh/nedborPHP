@@ -82,7 +82,7 @@ class NedborCsv
                 fclose($handle);
             }
         }
-        $outfile = $path . "nedbør.csv";
+        $outfile = $path . "allnedbor.csv";
         $outhandle = @fopen($outfile, "w");
         fwrite( $outhandle,$filetxt);
         fclose($outhandle);

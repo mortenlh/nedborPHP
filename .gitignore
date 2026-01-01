@@ -2,4 +2,4 @@
 /.phpdoc
 /vendor
 data/sumgraph.svg
-data/nedbør.csv
+data/allnedbor.csv
